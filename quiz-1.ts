@@ -1,48 +1,15 @@
-type product = {
-    id: number
-    productName: string
-    category: number | category<number, string>[] | category<number, string>,
-    quantity: number
-}
-
-type category<A, B> = {
-    id: A
-    categoryName: B
-}
-
-type productCollectionType = {
-    products: product[]
-    categories: category<number, string>[]
-}
-
-interface AddProductFunctionType {
-    (idProduct?: number, productName?: string, category?: number): string
-}
-
-interface AddCategoryFunctionType {
-    (idCategory?: number, categoryName?: string): string
-}
-
-interface EditProductFunctionType {
-    (idProduct: number, productName?: string): string | product[]
-}
-
-interface EditCategoryFunctionType {
-    (idCategory: number, categoryName?: string): string | category<number, string>[]
-}
-
-interface ShowItemType {
-    (type: ShowType): product[] | category<number, string>[]
-}
-
-enum ShowType {
-    products,
-    categories
-}
-
-interface FilterProductByIdCategoryType {
-    (idCategory: number): string | product[]
-}
+import {
+    AddCategoryFunctionType, 
+    AddProductFunctionType, 
+    EditCategoryFunctionType, 
+    EditProductFunctionType, 
+    FilterProductByIdCategoryType, 
+    ShowItemType, 
+    ShowType, 
+    category, 
+    product, 
+    productCollectionType
+} from "./types/type-1"
 
 const productCollection: productCollectionType = {
     products: [],
@@ -50,7 +17,7 @@ const productCollection: productCollectionType = {
 }
 
 const addProduct: AddProductFunctionType = (idProduct = 1, productName = 'Oreo', idCategory = 1, quantityProduct = 1) => {
- const isCategoryAvailable = productCollection.categories.filter(value => value.id === idCategory)
+ const isCategoryAvailable: category<number, string>[] = productCollection.categories.filter(value => value.id === idCategory)
 
  if (isCategoryAvailable.length >= 1) {
      productCollection.products.push({
@@ -67,7 +34,7 @@ const addProduct: AddProductFunctionType = (idProduct = 1, productName = 'Oreo',
 }
 
 const addCategory: AddCategoryFunctionType = (idCategory = 1, categoryName = 'Makanan') => {
- const isCategoryAvailable = productCollection.categories.filter(value => value.id === idCategory || value.categoryName === categoryName)
+ const isCategoryAvailable: category<number, string>[] = productCollection.categories.filter(value => value.id === idCategory || value.categoryName === categoryName)
 
  if (isCategoryAvailable.length >= 1) {
     return 'Category already exist'
